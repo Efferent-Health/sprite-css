@@ -1,5 +1,5 @@
 {
-    "name": "node-sprite-generator",
+    "name": "sprite-css",
     "version": "1.0.0",
     "description": "Generates image sprites and their stylesheets from sets of images with a pure-javascript renderer.",
     "main": "lib/nsg.js",
@@ -19,12 +19,11 @@
         "sprite",
         "sprites",
         "generator",
-        "css",
-        "retina"
+        "css"
     ],
     "repository": {
         "type": "git",
-        "url": "git://github.com/jaime-olivares/node-sprite-generator"
+        "url": "git://github.com/jaime-olivares/sprite-css"
     },
     "license": "MIT"
 }
