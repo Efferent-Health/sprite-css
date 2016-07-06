@@ -1,4 +1,4 @@
-# jaime-olivares/node-sprite-generator
+# jaime-olivares/sprite-css
 
 This is a fork of http://github.com/selaux/node-sprite-generator, 
 with trimmed features for reducing the installation noise and simplifying the usage.
@@ -16,13 +16,13 @@ The following features have been removed from the original implementation:
 ## Installation
 
 ```bash
-npm install jaime-olivares/node-sprite-generator
+npm install jaime-olivares/sprite-css
 ```
 
 ## Usage
 
 ```javascript
-var nsg = require('node-sprite-generator');
+var nsg = require('sprite');
 
 nsg({
     src: [ 'images/sprite/*.png' ],
@@ -40,7 +40,7 @@ This will generate a sprite.png file and the corresponding CSS stylesheet.
 #### src
 Type: `String`
 Default value: `[]`  
-Specifies the images that will be combined to the sprite. node-sprite-generator uses glob pattern matching, so paths with wildcards are valid as well.
+Specifies the images that will be combined to the sprite. Uses glob pattern matching, so paths with wildcards are valid as well.
 
 #### spritePath
 Type: `String`
@@ -78,7 +78,7 @@ Options that will be passed on to the compositor. The  compositor supports the f
 ## A more advanced example
 
 ```javascript
-var nsg = require('node-sprite-generator');
+var nsg = require('sprite-css');
 
 nsg({
     src: [
