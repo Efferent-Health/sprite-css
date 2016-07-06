@@ -1,29 +1,32 @@
 {
-    "name": "sprite-css",
-    "version": "1.0.0",
-    "description": "Generates image sprites and their stylesheets from sets of images with a pure-javascript renderer.",
-    "main": "lib/nsg.js",
-    "dependencies": {
-        "async": "1.2.0",
-        "bin-pack": "1.0.1",
-        "glob": "5.0.10",
-        "jimp": "0.2.21",
-        "mkdirp": "0.5.1",
-        "underscore": "1.8.3"
-    },
-    "devDependencies": {
-    },
-    "scripts": {
-    },
-    "keywords": [
-        "sprite",
-        "sprites",
-        "generator",
-        "css"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/jaime-olivares/sprite-css"
-    },
-    "license": "MIT"
+  "name": "sprite-css",
+  "version": "1.0.2",
+  "description": "Generates image sprites and their stylesheets from sets of images with a pure-javascript renderer.",
+  "main": "lib/nsg.js",
+  "dependencies": {
+    "async": "1.2.0",
+    "bin-pack": "1.0.1",
+    "glob": "5.0.10",
+    "jimp": "0.2.21",
+    "mkdirp": "0.5.1",
+    "underscore": "1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "keywords": [
+    "sprite",
+    "sprites",
+    "generator",
+    "css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jaime-olivares/sprite-css.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaime-olivares/sprite-css/issues"
+  },
+  "homepage": "https://github.com/jaime-olivares/sprite-css#readme",
+  "author": "Jaime Olivares"
 }
