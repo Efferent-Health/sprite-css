@@ -1,88 +1,39 @@
-# node-sprite-generator
+# jaime-olivares/node-sprite-generator
 
-[![NPM Version](https://img.shields.io/npm/v/node-sprite-generator.svg?style=flat-square)](https://www.npmjs.org/package/node-sprite-generator)
-[![Build Status](https://img.shields.io/travis/selaux/node-sprite-generator/master.svg?style=flat-square)](https://travis-ci.org/selaux/node-sprite-generator)
-[![Coverage Status](https://img.shields.io/coveralls/selaux/node-sprite-generator/master.svg?style=flat-square)](https://coveralls.io/r/selaux/node-sprite-generator?branch=master)
-[![Dependencies](https://img.shields.io/david/selaux/node-sprite-generator.svg?style=flat-square)](https://david-dm.org/selaux/node-sprite-generator)
+This is a fork of http://github.com/selaux/node-sprite-generator, 
+with trimmed features for reducing the installation noise and simplify the usage.
 
-Generates image sprites and their spritesheets (css, stylus, sass, scss or less) from sets of images. Supports retina sprites. Provides express middleware and grunt task.
+Generates image sprites and their stylesheets from sets of images. Supports retina sprites.
+
+The following features have been removed from the original implementation: 
+* Canvas and Graphics Magic compositors are removed. It uses only the `jimp` image compositor.
+* Express and Grunt support is removed. Only standalone usage is allowed.
+* Stylus, SASS and LESS stylesheets are not supported. Only prefixed CSS is allowed.
+* All testing artifacts have been removed.
+* All lint artifacts have been removed.
+* Horizontal, vertical and diagonal layouts are removed. Only 'packed' mode is enabled.
 
 ## Installation
 
 ```bash
-npm install node-sprite-generator
+npm install jaime-olivares/node-sprite-generator
 ```
 
-Note:
-node-sprite-generator cen either use native libraries or pure javascript to build sprites which requires no native dependencies. To use the pure javascript compositor use `'jimp'` as the compositor module.
-
-- __Cairo__ needs to be installed when using the `'canvas'` compositor because [node-canvas](https://github.com/LearnBoost/node-canvas) depends on it. For more information how to do this on your system go to the [node-canvas page](https://github.com/LearnBoost/node-canvas/wiki/_pages). If you have issues installing node-canvas on OSX, please read [Issue 23](https://github.com/selaux/node-sprite-generator/issues/23).
-- __ImageMagick/GraphicsMagick__ needs to be installed when using the `'gm'` compositor
-
 ## Usage
-
-### Standalone
 
 ```javascript
 var nsg = require('node-sprite-generator');
 
 nsg({
-    src: [
-        'images/sprite/*.png'
-    ],
+    src: [ 'images/sprite/*.png' ],
     spritePath: 'images/sprite.png',
-    stylesheetPath: 'stylus/sprite.styl'
+    stylesheetPath: 'styles/sprite.css'
 }, function (err) {
     console.log('Sprite generated!');
 });
 ```
 
-This will generate a sprite.png file and the corresponding stylus stylesheet, with can then be included from your stylus files.
-
-### With express.js
-
-node-sprite-generator provides a middleware to use with [express.js](https://github.com/visionmedia/express).
-
-```javascript
-var nsg = require('node-sprite-generator'),
-    express = require('express'),
-    app = express();
-
-app.use(nsg.middleware({
-    src: [
-        'images/sprite/*.png'
-    ],
-    spritePath: 'images/sprite.png',
-    stylesheetPath: 'stylus/sprite.styl'
-}));
-```
-
-Make sure that the node-sprite-generator middleware is used before any css preprocessors that use the generated stylesheet.
-
-### With grunt
-
-node-sprite-generator also provides a grunt plugin. It takes the same options as the other two methods.
-
-```javascript
-module.exports = function (grunt)  {
-
-    grunt.initConfig({
-
-        spriteGenerator: {
-            sprite: {
-                src: [
-                    'images/sprite/*.png'
-                ],
-                spritePath: 'images/sprite.png',
-                stylesheetPath: 'stylus/sprite.styl'
-            }
-        }
-
-    });
-
-    grunt.loadNpmTasks('node-sprite-generator');
-};
-```
+This will generate a sprite.png file and the corresponding CSS stylesheet.
 
 ## Options
 
@@ -103,18 +54,6 @@ Type: `String`
 Default value: `''`  
 The path your stylesheet will be written to.
 
-#### options.stylesheet
-Type: `String|Function`
-Default value: `'stylus'`  
-Specifies the sylesheet generator (and therefore the stylesheet format) that is used either by using one of the built-in formats or specifying a path to a custom template. It is also possible to specify a function that writes a custom stylesheet (see more at [extending node-sprite-generator](https://github.com/selaux/node-sprite-generator#extending-node-sprite-generator)).
-
-Built-in formats: 
-- `'stylus'`: https://learnboost.github.io/stylus/
-- `'less'`: http://lesscss.org/
-- `'sass'`, `'scss'`: http://sass-lang.com/
-- `'css'`: http://www.w3.org/Style/CSS/
-- `'prefixed-css'`: A version of `'css'` that generates a smaller stylesheet but requires the use of the `'prefix'` stylesheet option
-
 #### options.stylesheetOptions
 Type: `Object`
 Default value: `'{}'`  
@@ -124,38 +63,17 @@ __nameMapping__ (Type: `Function` Default: Filename): A function that specifies 
 __spritePath__ (Type: `String` Default: Relative Path): Defines which URL is used as the image path for the image sprite.  
 __pixelRatio__ (Type: `Integer` Default: `1`): Specifies the pixelRatio for retina sprites.  
 
-#### options.layout
-Type: `String|Function`
-Default value: `'vertical'`  
-Specifies the layout that is used to generate the sprite by using one of the built-in layouts or using a function that generates a custom layout (see more at [extending node-sprite-generator](https://github.com/selaux/node-sprite-generator#extending-node-sprite-generator)).
-
-Built-in layouts:
-- `'packed'`: Bin-packing Layout
-- `'vertical'`: Vertically aligned layout
-- `'horizontal'`: Horizontally aligned layout
-- `'diagonal'`: Diagonally aligned layout
-
 #### options.layoutOptions
 Type: `Object`
 Default value: `{}`  
-Options that will be passed on to the layout generation. The built-in layouters support the following options.  
+Options that will be passed on to the layout generation. The built-in layouter supports the following options:  
 __padding__ (Type: `Integer` Default: `0`): Specifies the padding between the images in the layout.  
 __scaling__ (Type: `Number` Default: `1`): Specifies the factor that the images are scaled with in the layout. This allows generating multiple, scaled versions of the same sprites using a single image set.  
-
-#### options.compositor
-Type: `String|Function`
-Default value: `'canvas'`  
-The compositor is used to read and render the images. Your can use one of the built-in options or specify your own module that implements this functionality. Have a look at [extending node-sprite-generator](https://github.com/selaux/node-sprite-generator#extending-node-sprite-generator) to see how it's done.
-
-Built-in compositors:
-- `'canvas'`: Uses [libcairo](http://cairographics.org/). If you have issues installing node-canvas on OSX, please read [Issue 23](https://github.com/selaux/node-sprite-generator/issues/23).
-- `'gm'`: Uses [GraphicsMagick](http://www.graphicsmagick.org/)/[ImageMagick](http://www.imagemagick.org/) 
-- `'jimp'`: [A pure javascript compositor](https://github.com/oliver-moran/jimp)
 
 #### options.compositorOptions
 Type: `Object`
 Default value: `{}`  
-Options that will be passed on to the compositor. The built-in compositor supports the following options:  
+Options that will be passed on to the compositor. The  compositor supports the following options:  
 __compressionLevel__ (Type: `Integer` Default: `6`): Specifies the compression level for the generated png file (compression levels range from 0-9).  
 __filter__ (Type: `String` Default: `all`): Specifies the filter used for the generated png file. Possible values: `all`, `none`, `sub`, `up`, `average`, `paeth`.
 
@@ -170,7 +88,6 @@ nsg({
     ],
     spritePath: 'public/images/all-icons.png',
     stylesheetPath: 'public/stylesheets/all-icons.css',
-    layout: 'diagonal',
     layoutOptions: {
         padding: 30
     },
@@ -183,52 +100,7 @@ nsg({
 });
 ```
 
-This will generate a diagonally layouted retina-enabled sprite that can be accessed using classes like ```all-icons-home```. The sprite will then be loaded from your static asset server.
-
-## Extending node-sprite-generator
-
-The internal pipeline for node-sprite-generator is
-
- - ```compositor.readImages(files, callback)``` -> ```callback(error, images)```
- - ```layout(images, options, callback)``` -> ```callback(error, layout)```
- - ```compositor.render(layout, spritePath, options, callback)``` -> ```callback(error)```
- - ```stylesheet(layout, stylesheetPath, spritePath, options, callback)``` -> ```callback(error)```
-
-The used data formats are:
-
-#### images
-```
-var images = [
-   {
-       width: Integer,
-       height: Integer,
-       data: compositor-specific
-   }
-]
-```
-
-#### layout
-```
-var layout = {
-    width: Integer,
-    height: Integer,
-    images: [
-        {
-            x: Integer,
-            y: Integer,
-            width: Integer,
-            height: Integer,
-            data: compositor-specific
-        }
-    ]
-}
-```
-
-For more information of how to write your own modules/functions have a look at the existing ones :-D.
-
-## Changelog
-
-See [CHANGELOG.md](https://github.com/selaux/node-sprite-generator/blob/master/CHANGELOG.md)
+This will generate a retina-enabled sprite that can be accessed using classes like ```all-icons-home```. The sprite will then be loaded from your static asset server.
 
 ## License
 

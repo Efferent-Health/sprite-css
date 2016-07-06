@@ -1,6 +1,0 @@
-reporting:
-  print: summary
-  reports:
-    - lcov
-    - html
-  dir: ./build/coverage

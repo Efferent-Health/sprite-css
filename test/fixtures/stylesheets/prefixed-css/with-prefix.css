@@ -1,4 +1,0 @@
-[class^='prefix-'], [class*=' prefix-'] { background-image:url('./images/png/sprite.png'); }
-.prefix-foo { background-position:0 0; width:150px; height:12px; }
-.prefix-bar { background-position:0 -12px; width:150px; height:24px; }
-.prefix-test { background-position:0 -36px; width:150px; height:12px; }
