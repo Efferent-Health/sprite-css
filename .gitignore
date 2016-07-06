@@ -1,5 +1,3 @@
-.idea/*
-node-sprite-generator.iml
 node_modules/*
 **/.DS_Store
 build/*
