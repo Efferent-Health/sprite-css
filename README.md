@@ -1,7 +1,7 @@
 # jaime-olivares/node-sprite-generator
 
 This is a fork of http://github.com/selaux/node-sprite-generator, 
-with trimmed features for reducing the installation noise and simplify the usage.
+with trimmed features for reducing the installation noise and simplifying the usage.
 
 Generates image sprites and their stylesheets from sets of images. Supports retina sprites.
 
@@ -37,45 +37,43 @@ This will generate a sprite.png file and the corresponding CSS stylesheet.
 
 ## Options
 
-node-sprite-generator tries to be very modular, so you can use the options we provide or write your own functions/modules to further customize your sprites.
-
-#### options.src
+#### src
 Type: `String`
 Default value: `[]`  
 Specifies the images that will be combined to the sprite. node-sprite-generator uses glob pattern matching, so paths with wildcards are valid as well.
 
-#### options.spritePath
+#### spritePath
 Type: `String`
 Default value: `''`  
-The path your image sprite will be written to. ATM we only support the PNG format for the image sprite.
+The path your image sprite will be written to. The PNG format is the only one supported for the image sprite.
 
-#### options.stylesheetPath
+#### stylesheetPath
 Type: `String`
 Default value: `''`  
-The path your stylesheet will be written to.
+The path the stylesheet will be written to.
 
-#### options.stylesheetOptions
+#### stylesheetOptions
 Type: `Object`
 Default value: `'{}'`  
 Options that will be passed on to the stylesheet generator. The built-in stylesheet generators support the following options:  
-__prefix__ (Type: `String` Default: `''`): A prefix that will be prepended to all classes/functions that are generated  
-__nameMapping__ (Type: `Function` Default: Filename): A function that specifies how filenames are mapped to class names in the stylesheet  
-__spritePath__ (Type: `String` Default: Relative Path): Defines which URL is used as the image path for the image sprite.  
-__pixelRatio__ (Type: `Integer` Default: `1`): Specifies the pixelRatio for retina sprites.  
+* __prefix__ (Type: `String` Default: `'prefix-'`): A prefix that will be prepended to all classes/functions that are generated  
+* __nameMapping__ (Type: `Function` Default: Filename): A function that specifies how filenames are mapped to class names in the stylesheet  
+* __spritePath__ (Type: `String` Default: Relative Path): Defines which URL is used as the image path for the image sprite.  
+* __pixelRatio__ (Type: `Integer` Default: `1`): Specifies the pixelRatio for retina sprites.  
 
-#### options.layoutOptions
+#### layoutOptions
 Type: `Object`
 Default value: `{}`  
 Options that will be passed on to the layout generation. The built-in layouter supports the following options:  
-__padding__ (Type: `Integer` Default: `0`): Specifies the padding between the images in the layout.  
-__scaling__ (Type: `Number` Default: `1`): Specifies the factor that the images are scaled with in the layout. This allows generating multiple, scaled versions of the same sprites using a single image set.  
+* __padding__ (Type: `Integer` Default: `0`): Specifies the padding between the images in the layout.  
+* __scaling__ (Type: `Number` Default: `1`): Specifies the factor that the images are scaled with in the layout. This allows generating multiple, scaled versions of the same sprites using a single image set.  
 
-#### options.compositorOptions
+#### compositorOptions
 Type: `Object`
 Default value: `{}`  
 Options that will be passed on to the compositor. The  compositor supports the following options:  
-__compressionLevel__ (Type: `Integer` Default: `6`): Specifies the compression level for the generated png file (compression levels range from 0-9).  
-__filter__ (Type: `String` Default: `all`): Specifies the filter used for the generated png file. Possible values: `all`, `none`, `sub`, `up`, `average`, `paeth`.
+* __compressionLevel__ (Type: `Integer` Default: `6`): Specifies the compression level for the generated png file (compression levels range from 0-9).  
+* __filter__ (Type: `String` Default: `all`): Specifies the filter used for the generated png file. Possible values: `all`, `none`, `sub`, `up`, `average`, `paeth`.
 
 ## A more advanced example
 
@@ -91,7 +89,6 @@ nsg({
     layoutOptions: {
         padding: 30
     },
-    stylesheet: 'app/assets/sprites/template.tpl',
     stylesheetOptions: {
         prefix: 'all-icons',
         spritePath: 'http://static.your-server.org/images/all-icons.png',
