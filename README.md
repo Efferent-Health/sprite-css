@@ -1,4 +1,4 @@
-# jaime-olivares/sprite-css
+# sprite-css
 
 This is a fork of http://github.com/selaux/node-sprite-generator, 
 with trimmed features for reducing the installation noise and simplifying the usage.
@@ -6,25 +6,27 @@ with trimmed features for reducing the installation noise and simplifying the us
 Generates image sprites and their stylesheets from sets of images. Supports retina sprites.
 
 The following features have been removed from the original implementation: 
-* Canvas and Graphics Magic compositors are removed. It uses only the `jimp` image compositor.
+* Canvas and Graphics Magic compositors are removed. It uses only the [jimp](https://github.com/oliver-moran/jimp) image compositor.
 * Express and Grunt support is removed. Only standalone usage is allowed.
 * Stylus, SASS and LESS stylesheets are not supported. Only prefixed CSS is allowed.
 * All testing artifacts have been removed.
 * All lint artifacts have been removed.
 * Horizontal, vertical and diagonal layouts are removed. Only 'packed' mode is enabled.
 
-## Installation
+## Installation from npm
 
 ```bash
-npm install jaime-olivares/sprite-css
+npm install sprite-css
 ```
+
+Depending on your purposes, it may be needed an argument like `--save`, `--save-dev` or `--global`
 
 ## Usage
 
 ```javascript
-var nsg = require('sprite');
+var sprite = require('sprite-css');
 
-nsg({
+sprite({
     src: [ 'images/sprite/*.png' ],
     spritePath: 'images/sprite.png',
     stylesheetPath: 'styles/sprite.css'
